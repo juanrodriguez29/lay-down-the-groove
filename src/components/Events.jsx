@@ -12,8 +12,8 @@ export function Events() {
   })
 
   return (
-    <section className="pt-12 pb-6 px-6 bg-zinc-100">
-      <h2 className="text-3xl font-bold uppercase tracking-widest text-center mb-6">Events</h2>
+    <section id="events" className="pt-12 pb-6 px-6 bg-zinc-100">
+      <h2 className="text-3xl font-bold uppercase tracking-widest text-center mb-12">Events</h2>
       <div className="flex gap-4 pb-8 justify-center">
         <p className="text-sx uppercase tracking-widest text-gray-400 self center">Filter by:</p>
         <button

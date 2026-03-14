@@ -2,7 +2,7 @@ import { SiSoundcloud, SiBandcamp, SiInstagram } from 'react-icons/si';
 
 export function Hero() {
   return (
-    <section className="min-h-screen flex flex-col items-center justify-between bg-zinc-100 pt-20 pb-12">
+    <section id="hero" className="min-h-screen flex flex-col items-center justify-between bg-zinc-100 pt-20 pb-12">
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto px-6 pb-12 w-full items-center flex-1">
 
@@ -27,7 +27,7 @@ export function Hero() {
 
       </div>
       <div className="flex flex-col items-center gap-6">
-        <button className="border-2 border-black text-black px-8 py-3 text-sm tracking-widest uppercase hover:bg-black hover:text-white transition-colors">
+        <button onClick={() => document.getElementById('releases').scrollIntoView({ behavior: 'smooth' })} className="border-2 border-black text-black px-8 py-3 text-sm tracking-widest uppercase hover:bg-black hover:text-white transition-colors">
           Explore Releases
         </button>
         <div className="flex gap-6">
