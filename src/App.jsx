@@ -4,6 +4,8 @@ import { Hero} from './components/Hero';
 import { Releases } from './components/Releases';
 import { Artists } from './components/Artists';
 import { Events } from './components/Events';
+import { About } from './components/About'; 
+import { Footer } from './components/Footer';
 
 export default function App() {
   return (
@@ -13,6 +15,8 @@ export default function App() {
       <Releases />
       <Artists />
       <Events />
+      <About />
+      <Footer />
     </div>
   )
 }
