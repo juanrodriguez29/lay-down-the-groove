@@ -1,20 +1,28 @@
 const ReleaseCard = ({ release }) => {
   return (
-    <div className="flex flex-col">
-      <a href={release.link} target="_blank" rel="noopener noreferrer" className="block">
-        <div className="aspect-square bg-gray-200">
+    <a href={release.link} target="_blank" rel="noopener noreferrer" className="block group">
+      <div className="flex flex-col">
+
+        <div className="aspect-square bg-gray-200 relative overflow-hidden">
           {release.artwork ? (
             <img src={release.artwork} alt={release.title} className="w-full h-full object-cover" />)
             : null
           }
+
+          <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 opacity-0 group-hover:opacity-60 transition-opacity">
+            <p className="text-white text-base tracking-widest">Buy on Bandcamp</p>
+          </div>
         </div>
-      </a>
-      <div className="pt-3">
-        <h3 className="font-bold text-sm uppercase tracking-wide">{release.title}</h3>
-        <p className="text-sm text-gray-600">{release.artist}</p>
-        <p className="text-xs text-gray-400 mt-1">{release.year} · {release.format}</p>
+
+
+        <div className="pt-3">
+          <h3 className="font-bold text-sm uppercase tracking-wide">{release.title}</h3>
+          <p className="text-sm text-gray-600">{release.artist}</p>
+          <p className="text-xs text-gray-400 mt-1">{release.year} · {release.format}</p>
+        </div>
       </div>
-    </div>
+    </a>
+
   )
 }
 

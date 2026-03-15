@@ -14,7 +14,7 @@ export function Events() {
   return (
     <section id="events" className="pt-12 pb-6 px-6 bg-zinc-100">
       <h2 className="text-3xl font-bold uppercase tracking-widest text-center mb-12">Events</h2>
-      <div className="flex gap-4 pb-8 justify-center">
+      <div className="flex gap-4 mb-12 justify-center">
         <p className="text-sx uppercase tracking-widest text-gray-400 self center">Filter by:</p>
         <button
           className={`px-4 py-1 text-xs uppercase tracking-widest border transition-colors ${filter === 'all' ? 'bg-black text-white' : 'border-black hover:bg-black hover:text-white'}`}

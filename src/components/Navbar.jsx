@@ -23,7 +23,7 @@ export function Navbar() {
         </button>
       </div>
       {menuOpen && (
-        <div className="md:hidden bg-red-950 flex flex-col text-white tracking-widest space-y-4  pb-6 px-8 w-1/3 absolute right-0 top-full border-l border-red-800">
+        <div className="md:hidden bg-red-950 flex flex-col text-white tracking-widest space-y-4  pb-6 px-8 w-1/3 absolute right-0 top-full border border-red-800">
           <a href="#releases" className="hover:text-gray-400" onClick={() => setMenuOpen(false)}>Releases</a>
           <a href="#artists" className="hover:text-gray-400" onClick={() => setMenuOpen(false)}>Artists</a>
           <a href="#events" className="hover:text-gray-400" onClick={() => setMenuOpen(false)}>Events</a>
