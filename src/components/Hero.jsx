@@ -30,7 +30,6 @@ export function Hero() {
   )
 }
 
-<div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto px-6 pb-12 w-full items-center flex-1">
 
 
 
@@ -38,7 +37,8 @@ export function Hero() {
 
 
 
-</div>
+
+
 
 /*<section className="bg-cover bg-no-repeat min-h-screen flex flex-col items-center justify-center gap-6 bg-zinc-100">
      <img src="/Main_Logo.png" alt="Lay Down The Groove" className="w-64 md:w-96" />
