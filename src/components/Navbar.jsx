@@ -23,7 +23,16 @@ export function Navbar() {
         </button>
       </div>
       {menuOpen && (
-        <div className="md:hidden bg-red-950 flex flex-col text-white tracking-widest space-y-4  pb-6 px-8 w-1/3 absolute right-0 top-full border border-red-800">
+        <div
+          className="font-bebas md:hidden bg-black/90 fixed inset-0 z-50 flex flex-col text-white text-4xl tracking-widest items-center justify-center gap-4"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setMenuOpen(false)
+          }}
+        >
+          <button onClick={() => setMenuOpen(false)} className="absolute top-6 right-6 text-white">
+            <X size={24} />
+          </button>
+          <img src="/Alternate_Logo_No_Text.png" alt="LDG" className="h-16 w-auto invert mb-8" />
           <a href="#releases" className="hover:text-gray-400" onClick={() => setMenuOpen(false)}>Releases</a>
           <a href="#artists" className="hover:text-gray-400" onClick={() => setMenuOpen(false)}>Artists</a>
           <a href="#events" className="hover:text-gray-400" onClick={() => setMenuOpen(false)}>Events</a>

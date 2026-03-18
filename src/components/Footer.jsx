@@ -42,7 +42,7 @@ export function Footer() {
         </div>
 
         {/* Subscribe */}
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col md:flex-row items-center gap-4">
           <label className="text-white text-xs tracking-widest">Subscribe:</label>
           <input
             type="email"
