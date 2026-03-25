@@ -1,11 +1,25 @@
-import { useState } from "react";
-import { events } from "../data";
+import { useState, useEffect } from "react";
+import { supabase } from "../supabase"; 
 import EventsCard from "./EventsCard";
 import { motion } from 'framer-motion'
 
 export function Events() {
 
   const [filter, setFilter] = useState("all");
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      const { data, error } = await supabase.from('events').select('*').order('date', { ascending: false });
+      if (error) throw new Error(error.message);
+      setEvents(data);
+      setLoading(false);
+    }
+    fetchEvents()
+  }, []);
+  
+  
 
   const filteredEvents = events.filter((event) => {
     if (filter === "all") return true;
@@ -40,23 +54,22 @@ export function Events() {
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
       >
-        <div className="max-w-6xl mx-auto min-h-96">
+        {loading 
+        ? (<p className="text-center text-gray-400 text-sm uppercase tracking-widest">Loading...</p>)
+        : <div className="max-w-6xl mx-auto min-h-96">
           {filteredEvents.length === 0 ? (
             <div className="flex justify-center items-center min-h-96">
               <p className="text-gray-400 text-sm uppercase tracking-widest col-span-3 text-center pt-16">No upcoming events</p>
             </div>
           ) :
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-6">
-              {[...filteredEvents].sort((a, b) => {
-                const [dayA, monthA, yearA] = a.date.split('/')
-                const [dayB, monthB, yearB] = b.date.split('/')
-                return new Date(yearB, monthB - 1, dayB) - new Date(yearA, monthA - 1, dayA)
-              }).map((event) => (
+              {filteredEvents.map((event) => (
                 <EventsCard key={event.id} event={event} />
               ))}
             </div>
           }
         </div>
+}
       </motion.div>
     </section>
   )

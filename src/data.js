@@ -5,7 +5,7 @@ export const releases = [
   { id: 9, title: "Pursuit Of Sound", artist: "Lay Down The Groove", year: "2021", format: "Vinyl", artwork: "/Artwork/pursuit-of-sound.jpg", link: "https://laydownthegroove.bandcamp.com/album/pursuit-of-sound" },
   { id: 8, title: "Down Under", artist: "Various Artists", year: "2020", format: "Vinyl", artwork: "/Artwork/down-under.jpg", link: "https://laydownthegroove.bandcamp.com/album/down-under" },
   { id: 7, title: "Southern Boundaries", artist: "Various Artists", year: "2019", format: "Digital", artwork: "/Artwork/southern-boundaries.jpg", link: "https://laydownthegroove.bandcamp.com/album/southern-boundaries" },
-  { id: 6, title: "Alter View Of Basics", artist: "Lay Down The Groove", year: "2018", format: "Vinyl", artwork: "/Artwork/alter-view-of-basics.jpg", link: "https://laydownthegroove.bandcamp.com/album/alter-view-of-basicsw" },
+  { id: 6, title: "Alter View Of Basics", artist: "Lay Down The Groove", year: "2018", format: "Vinyl", artwork: "/Artwork/alter-view-of-basics.jpg", link: "https://laydownthegroove.bandcamp.com/album/alter-view-of-basics" },
   { id: 5, title: "Home Issues", artist: "DJ Braver", year: "2018", format: "Digital", artwork: "/Artwork/home-issues.jpg", link:"https://laydownthegroove.bandcamp.com/album/home-issues-2"},
   { id: 4, title: "Last Movements", artist: "Lay Down the Groove", year: "2017", format: "Digital", artwork: "/Artwork/last-movements.jpg", link: "https://laydownthegroove.bandcamp.com/album/last-movements" },
   { id: 3, title: "Night Spot", artist: "Various Artists", year: "2017", format: "Vinyl", artwork: "/Artwork/night-spot.jpg", link: "https://laydownthegroove.bandcamp.com/album/night-spot" },

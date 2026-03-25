@@ -44,10 +44,10 @@ export function Footer() {
         {/* Subscribe */}
         <div className="flex flex-col md:flex-row items-center gap-4">
           <label className="text-white text-xs tracking-widest">Subscribe:</label>
-          <input
+          <input 
             type="email"
             placeholder="Enter your email"
-            className="px-4 py-1 text-xs bg-transparent border border-white text-white placeholder-gray-400 focus:outline-none"
+            className="text-center px-4 py-1 text-xs bg-transparent border border-white text-white placeholder-gray-400 focus:outline-none"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
