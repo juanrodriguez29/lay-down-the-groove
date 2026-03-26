@@ -8,14 +8,14 @@ const EventsCard = ({ event }) => {
 
   return (
 
-    
-    <div className="flex flex-col">
 
-      {event.photo ? (
-        <img src={imageUrl} alt={event.name} className="aspect-[3/4] w-full h-full object-cover" />)
-        : null
-      }
-
+    <div className="flex flex-col w-full">
+      <div className="bg-gray-200 overflow-hidden"> 
+        {event.photo ? (
+          <img src={imageUrl} alt={event.name} className="w-full h-full object-cover" />)
+          : null
+        }
+      </div>
       <div className="pt-3">
         <h3 className="font-bold text-sm uppercase tracking-wide">{event.name}</h3>
         <p className="text-sm text-gray-600">
