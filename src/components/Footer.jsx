@@ -57,7 +57,7 @@ export function Footer() {
         </div>
 
         {/* Copyright */}
-        <p className="text-gray-400 text-xs tracking-widest">© 2025 Lay Down The Groove. All rights reserved.</p>
+        <p className="text-gray-400 text-xs tracking-widest">© 2026 Lay Down The Groove. All rights reserved.</p>
 
       </div>
     </footer>
