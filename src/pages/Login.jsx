@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { supabase } from '../supabase';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export function Login() {
   const [email, setEmail] = useState('');
@@ -26,7 +27,7 @@ export function Login() {
 
   return (
     <section id="login" className="py-16 px-6 bg-red-950 flex flex-col items-center justify-center pb-24 min-h-screen">
-      <img src="Alternate_Logo_No_Text.png" alt="Lay Down The Groove" className="h-24 invert mb-8" />
+      <Link to="/"><img src="Alternate_Logo_No_Text.png" alt="Lay Down The Groove" className="h-24 invert mb-8" /></Link>
       <h2 className="text-3xl text-white font-bold uppercase tracking-widest text-center mb-12">Login</h2>
       <div className="flex flex-col gap-4 w-full max-w-sm border border-white p-8">
         <label className="text-white text-xs tracking-widest">Email</label>

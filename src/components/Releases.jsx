@@ -9,7 +9,7 @@ export function Releases() {
 
   useEffect(() => {
     const fetchReleases = async () => {
-      const { data, error } = await supabase.from('releases').select("*").order('sort_order', { ascending: false });
+      const { data, error } = await supabase.from('releases').select("*").order('catalog', { ascending: false });
       if (error) throw new Error(error.message);
       setReleases(data);
       setLoading(false);
