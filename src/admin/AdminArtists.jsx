@@ -5,6 +5,7 @@ export function AdminArtists() {
 
   const [artists, setArtists] = useState([]);
   const [editingArtist, setEditingArtist] = useState(null);
+  const [file, setFile] = useState(null);
 
   useEffect(() => {
     const fetchArtists = async () => {
@@ -31,16 +32,32 @@ export function AdminArtists() {
 
   const handleSave = async (id) => {
 
+    let artWorkPath = editingArtist.photo;
+
+    if (file) {
+      const fileName = `artist-photos/${Date.now()}-${file.name}`;
+      const { error: updateError } = await supabase.storage.from('ldg-media').upload(fileName, file);
+      if (updateError) throw new Error(updateError.message);
+      artWorkPath = fileName;
+    };
+
+    if (!file && !editingArtist.artwork) {
+      alert('Please upload a photo for the artist.');
+      return;
+    }
+
     if (!editingArtist.id) {
       const { data, error } = await supabase.from('artists').insert({
         name: editingArtist.name,
+        photo: artWorkPath
       }).select('*');
       if (error) throw new Error(error.message)
       setArtists([...artists, ...data].sort((a, b) => a.name.localeCompare(b.name)));
       setEditingArtist(null);
     } else {
       const { error } = await supabase.from('artists').update({
-        name: editingArtist.name
+        name: editingArtist.name,
+        photo: artWorkPath
       }).eq('id', id);
       if (error) throw new Error(error.message)
       setArtists(artists.map(artist => artist.id === id ? editingArtist : artist));
@@ -120,6 +137,19 @@ export function AdminArtists() {
                 placeholder="Name"
                 className="border border-gray-300 px-4 py-2 text-sm"
               />
+              <input
+                id="photo-upload"
+                type="file"
+                accpet="image/*"
+                onChange={(e) => setFile(e.target.files[0])}
+                className="hidden"
+              />
+              <label
+                htmlFor="photo-upload"
+                className="border border-gray-300 px-4 py-2 text-sm cursor-pointer hover:bg-gray-50 block text-center"
+              >
+                {file ? file.name : 'Upload Photo'}
+              </label>
             </div>
             <div className="flex gap-4 mt-6">
               <button

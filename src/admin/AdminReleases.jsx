@@ -5,6 +5,7 @@ export function AdminReleases() {
 
   const [releases, setReleases] = useState([]);
   const [editingRelease, setEditingRelease] = useState(null);
+  const [file, setFile] = useState(null);
 
   useEffect(() => {
     const fetchReleases = async () => {
@@ -31,30 +32,51 @@ export function AdminReleases() {
 
   const handleSave = async (id) => {
 
+    let artWorkPath = editingRelease.artwork;
+
+    if (file) {
+      const fileName = `release-covers/${Date.now()}-${file.name}`;
+      const { error: uploadError } = await supabase.storage.from('ldg-media').upload(fileName, file);
+      if (uploadError) throw new Error(uploadError.message);
+      artWorkPath = fileName;
+    }
+
+    if (!file && !editingRelease.artwork) {
+      alert('Please upload an artwork for the release.');
+      return;
+    }
+
     if (!editingRelease.id) {
+
       const { data, error } = await supabase.from('releases').insert({
+        
         catalog: editingRelease.catalog,
         title: editingRelease.title,
         artist: editingRelease.artist,
         year: editingRelease.year,
+        artwork: artWorkPath,
         bandcamp: editingRelease.bandcamp,
         format: editingRelease.format
       }).select('*');
       if (error) throw new Error(error.message)
-      setReleases([...releases, ...data].sort((a, b) => b.catalog.localeCompare(a.catalog)));
+      setReleases([...releases, ...data].sort((a, b) => b.catalog - a.catalog));
       setEditingRelease(null);
+      console.log(error);
     } else {
+
       const { error } = await supabase.from('releases').update({
         catalog: editingRelease.catalog,
         title: editingRelease.title,
         artist: editingRelease.artist,
         year: editingRelease.year,
+        artwork: artWorkPath,
         bandcamp: editingRelease.bandcamp,
         format: editingRelease.format
       }).eq('id', id);
       if (error) throw new Error(error.message)
       setReleases(releases.map(release => release.id === id ? editingRelease : release));
       setEditingRelease(null);
+      setFile(null);
     }
 
   };
@@ -62,6 +84,7 @@ export function AdminReleases() {
 
   const handleCancel = () => {
     setEditingRelease(null);
+    setFile(null);
   };
 
   useEffect(() => {
@@ -172,6 +195,19 @@ export function AdminReleases() {
                 placeholder="Format"
                 className="border border-gray-300 px-4 py-2 text-sm"
               />
+              <input
+                id="artwork-upload"
+                type="file"
+                accpet="image/*"
+                onChange={(e) => setFile(e.target.files[0])}
+                className="hidden"
+              />
+              <label
+                htmlFor="artwork-upload"
+                className="border border-gray-300 px-4 py-2 text-sm cursor-pointer hover:bg-gray-50 block text-center"
+              >
+                {file ? file.name : 'Upload Artwork'}
+              </label>
             </div>
             <div className="flex gap-4 mt-6">
               <button
