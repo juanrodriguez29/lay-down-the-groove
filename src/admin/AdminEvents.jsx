@@ -68,6 +68,7 @@ export function AdminEvents() {
       if (error) throw new Error(error.message)
       setEvents(events.map(event => event.id === id ? editingEvent : event));
       setEditingEvent(null);
+      setFile(null);
     }
 
   };
@@ -178,7 +179,7 @@ export function AdminEvents() {
               <input
                 id="artwork-upload"
                 type="file"
-                accpet="image/*"
+                accept="image/*"
                 onChange={(e) => setFile(e.target.files[0])}
                 className="hidden"
               />

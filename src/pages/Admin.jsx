@@ -5,6 +5,7 @@ import { supabase } from '../supabase';
 import { AdminReleases } from '../admin/AdminReleases';
 import { AdminArtists } from '../admin/AdminArtists';
 import { AdminEvents } from '../admin/AdminEvents';
+import { AdminSubscribers } from '../admin/AdminSubscribers';
 
 
 export function Admin() {
@@ -52,7 +53,9 @@ export function Admin() {
         {activeSection === 'events' && (
           <AdminEvents />
         )}
-        {activeSection === 'subscribers' && <p>Subscribers Section</p>}
+        {activeSection === 'subscribers' && (
+          <AdminSubscribers />
+        )}
 
       </div>
 

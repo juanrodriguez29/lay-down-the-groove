@@ -41,7 +41,7 @@ export function AdminArtists() {
       artWorkPath = fileName;
     };
 
-    if (!file && !editingArtist.artwork) {
+    if (!file && !editingArtist.photo) {
       alert('Please upload a photo for the artist.');
       return;
     }
@@ -62,6 +62,7 @@ export function AdminArtists() {
       if (error) throw new Error(error.message)
       setArtists(artists.map(artist => artist.id === id ? editingArtist : artist));
       setEditingArtist(null);
+      setFile(null);
     }
 
   };
@@ -140,7 +141,7 @@ export function AdminArtists() {
               <input
                 id="photo-upload"
                 type="file"
-                accpet="image/*"
+                accept="image/*"
                 onChange={(e) => setFile(e.target.files[0])}
                 className="hidden"
               />
