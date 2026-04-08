@@ -13,9 +13,12 @@ export function Footer() {
       .from('subscribers')
       .insert([{ email }]);
     if (error) {
-      console.log('Supabase error:', error)
-      alert('Something went wrong. Please try again.');
-    } else {
+      if (error.message.includes('duplicate')) {
+        alert('This email is already subscribed.')
+      } else {
+        alert('Something went wrong. Please try again later.')
+      }
+      } else {
       alert('Thanks for subscribing!')
       setEmail('');
     }
