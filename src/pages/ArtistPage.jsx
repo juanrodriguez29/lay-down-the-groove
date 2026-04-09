@@ -43,7 +43,7 @@ export function ArtistPage() {
       <div className="px-6 bg-zinc-100 min-h-screen pt-24 pb-16 flex items-center">
         {artist ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-6xl mx-auto items-start">
-            <div className="aspect-[3/4] overflow-hidden max-w-md">
+            <div className="aspect-square overflow-hidden max-w-md">
               <img src={imageUrl} alt={artist.name} className="w-full h-full object-cover object-top" />
             </div>
             <div className="flex flex-col gap-6">
