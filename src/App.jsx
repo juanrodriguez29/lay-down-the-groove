@@ -9,6 +9,7 @@ import { About } from './components/About';
 import { Footer } from './components/Footer';
 import { Login } from './pages/Login';
 import { Admin } from './pages/Admin';
+import { ArtistPage } from './pages/ArtistPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
 
 function Home() {
@@ -35,6 +36,7 @@ export default function App() {
           <ProtectedRoute>
             <Admin />
           </ProtectedRoute>} />
+        <Route path="/artists/:id" element={<ArtistPage />} />
       </Routes>
     </BrowserRouter>
   )

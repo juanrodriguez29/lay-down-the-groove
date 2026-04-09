@@ -1,7 +1,22 @@
 import { SiSoundcloud, SiBandcamp, SiInstagram } from 'react-icons/si';
+import { useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
+
 
 export function Hero() {
+  
+  const location = useLocation();
+  
+  useEffect(() => {
+    if (location.state?.scrollTo) {
+      setTimeout(() => {
+        document.getElementById(location.state.scrollTo)?.scrollIntoView({ behavior: 'smooth' });
+      },500);
+    }
+  }, [location.state]);
+
   return (
+
     <section id="hero" className="min-h-screen flex flex-col items-center justify-between bg-zinc-100 pt-20 pb-12">
       <div className="flex flex-col items-center gap-6 justify-center flex-1 px-6">
         <div className="flex flex-col items-center  justify-center gap-6 pb-6">
