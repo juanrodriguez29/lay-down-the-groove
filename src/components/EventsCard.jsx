@@ -8,7 +8,7 @@ const EventsCard = ({ event }) => {
 
   return (
 
-
+  <a href={event.booking_link} target="_blank" rel="noopener noreferrer" className="block group">
     <div className="flex flex-col w-full">
       <div className="bg-gray-200 overflow-hidden"> 
         {event.photo ? (
@@ -23,6 +23,7 @@ const EventsCard = ({ event }) => {
         </p>
       </div>
     </div>
+  </a>
   )
 }
 

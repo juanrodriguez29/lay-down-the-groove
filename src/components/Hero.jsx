@@ -9,10 +9,13 @@ export function Hero() {
   
   useEffect(() => {
     if (location.state?.scrollTo) {
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         document.getElementById(location.state.scrollTo)?.scrollIntoView({ behavior: 'smooth' });
+        window.history.replaceState({}, '');
       },500);
+      return () => clearTimeout(timer)
     }
+    
   }, [location.state]);
 
   return (
