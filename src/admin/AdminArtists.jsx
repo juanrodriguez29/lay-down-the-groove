@@ -6,6 +6,7 @@ export function AdminArtists() {
   const [artists, setArtists] = useState([]);
   const [editingArtist, setEditingArtist] = useState(null);
   const [file, setFile] = useState(null);
+  const [linkType, setLinkType] = useState('soundcloud');
 
   useEffect(() => {
     const fetchArtists = async () => {
@@ -28,6 +29,11 @@ export function AdminArtists() {
 
   const handleEdit = (artist) => {
     setEditingArtist(artist);
+    if (!artist.id) {
+      setLinkType('soundcloud');
+    } else {
+      setLinkType(artist.youtube ? 'youtube' : 'soundcloud');
+    }
   }
 
   const handleSave = async (id) => {
@@ -49,7 +55,11 @@ export function AdminArtists() {
     if (!editingArtist.id) {
       const { data, error } = await supabase.from('artists').insert({
         name: editingArtist.name,
-        photo: artWorkPath
+        photo: artWorkPath,
+        bio: editingArtist.bio,
+        ...(linkType === 'soundcloud' ? { soundcloud: editingArtist.listening_link, youtube: null } : { youtube: editingArtist.listening_link, soundcloud: null })
+
+
       }).select('*');
       if (error) throw new Error(error.message)
       setArtists([...artists, ...data].sort((a, b) => a.name.localeCompare(b.name)));
@@ -57,7 +67,10 @@ export function AdminArtists() {
     } else {
       const { error } = await supabase.from('artists').update({
         name: editingArtist.name,
-        photo: artWorkPath
+        photo: artWorkPath,
+        bio: editingArtist.bio,
+        ...(linkType === 'soundcloud' ? { soundcloud: editingArtist.listening_link, youtube: null } : { youtube: editingArtist.listening_link, soundcloud: null })
+
       }).eq('id', id);
       if (error) throw new Error(error.message)
       setArtists(artists.map(artist => artist.id === id ? editingArtist : artist));
@@ -92,6 +105,11 @@ export function AdminArtists() {
           className="px-4 py-2 text-xs uppercase tracking-widest bg-red-950 text-white hover:bg-red-900 transition-colors"
           onClick={() => handleEdit({
             name: '',
+            bio: '',
+            photo: '',
+            soundcloud: '',
+            youtube: ''
+
           })}
         >+ add artist
         </button>
@@ -138,6 +156,28 @@ export function AdminArtists() {
                 placeholder="Name"
                 className="border border-gray-300 px-4 py-2 text-sm"
               />
+              <textarea
+                value={editingArtist.bio || ''}
+                onChange={(e) => setEditingArtist({ ...editingArtist, bio: e.target.value })}
+                placeholder="Bio"
+                className="border border-gray-300 px-4 py-2 text-sm h-32 resize-none"
+              />
+              <input
+               value={editingArtist.listening_link ?? (editingArtist.soundcloud || editingArtist.youtube || '')}
+                onChange={(e) => setEditingArtist({ ...editingArtist, listening_link: e.target.value })}
+                placeholder="Listening Link"
+                className="border border-gray-300 px-4 py-2 text-sm"
+              />
+              <div className="flex items-center gap-4">
+                <label className="flex flex-1 items-center gap-2">
+                  <input type="radio" value="soundcloud" checked={linkType === 'soundcloud'} onChange={() => setLinkType('soundcloud')} />
+                  SoundCloud
+                </label>
+                <label className="flex flex-1 items-center gap-2">
+                  <input type="radio" value="youtube" checked={linkType === 'youtube'} onChange={() => setLinkType('youtube')} />
+                  YouTube
+                </label>
+              </div>
               <input
                 id="photo-upload"
                 type="file"
@@ -168,5 +208,5 @@ export function AdminArtists() {
         </div>
       )}
     </>
-  );
+  )
 }
