@@ -50,7 +50,7 @@ export function Footer() {
           <input 
             type="email"
             placeholder="Enter your email"
-            className="text-center px-4 py-1 text-xs bg-transparent border border-white text-white placeholder-gray-400 focus:outline-none"
+            className="text-center px-4 py-1 text-base bg-transparent border border-white text-white placeholder-gray-400 focus:outline-none"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
