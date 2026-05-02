@@ -6,6 +6,7 @@ import { AdminReleases } from '../admin/AdminReleases';
 import { AdminArtists } from '../admin/AdminArtists';
 import { AdminEvents } from '../admin/AdminEvents';
 import { AdminSubscribers } from '../admin/AdminSubscribers';
+import { AdminReleaseNotes } from '../admin/AdminReleaseNotes';
 
 
 export function Admin() {
@@ -36,6 +37,8 @@ export function Admin() {
             className={`hover:text-gray-400 transition-colors ${activeSection === 'events' ? 'text-white font-bold underline' : 'text-gray-400'}`} onClick={() => setActiveSection('events')}>Events</button>
           <button
             className={`hover:text-gray-400 transition-colors ${activeSection === 'subscribers' ? 'text-white font-bold underline' : 'text-gray-400'}`} onClick={() => setActiveSection('subscribers')}>Subscribers</button>
+           <button 
+            className={`hover:text-gray-400 transition-colors ${activeSection === 'release notes' ? 'text-white font-bold underline' : 'text-gray-400'}`} onClick={() => setActiveSection('release notes')}>Release Notes</button>
         </div>
         <button
           className="text-white hover:text-gray-400 transition-colors"
@@ -55,6 +58,9 @@ export function Admin() {
         )}
         {activeSection === 'subscribers' && (
           <AdminSubscribers />
+        )}
+        {activeSection === 'release notes' && (
+          <AdminReleaseNotes/>
         )}
 
       </div>
