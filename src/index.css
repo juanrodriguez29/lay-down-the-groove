@@ -32,3 +32,35 @@ h1, h2 {
   font-family: 'Bebas Neue', sans-serif;
 }
 
+.ldg-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  /*background: #c1502e;            /* mustard / accent strip   */
+  /*color: #5e1c14;                 /* oxblood text             */
+  background: #e5e5e5;
+  padding: 6px 0;
+  
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: semi-bold;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.ldg-marquee__track {
+  display: inline-block;
+  padding-left: 100%;             /* start fully off-screen   */
+  animation: ldg-marquee 42s linear infinite;
+}
+
+.ldg-marquee__item { margin-right: 64px; }
+
+@keyframes ldg-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+
+/* respect reduced-motion users */
+@media (prefers-reduced-motion: reduce) {
+  .ldg-marquee__track { animation: none; padding-left: 0; }
+}

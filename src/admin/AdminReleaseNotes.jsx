@@ -57,8 +57,15 @@ export function AdminReleaseNotes() {
           className="px-4 py-2 text-xs uppercase tracking-widest bg-red-950 text-white hover:bg-red-900 transition-colors disabled:opacity-50"
           onClick={handleGenerate}
           disabled={loading}>
-          {loading ? 'Generating' : 'Generate Notes'}
+          Generate Notes
         </button>
+        {loading && (
+          <div className="flex items-center justify-center gap-2 mt-4">
+            <div className="w-2 h-2 bg-red-950 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+            <div className="w-2 h-2 bg-red-950 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+            <div className="w-2 h-2 bg-red-950 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+          </div>
+        )}
 
         {generatedNotes.length > 0 && (
           <div className="flex flex-col gap-6 mt-6">

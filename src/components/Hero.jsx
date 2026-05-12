@@ -20,7 +20,7 @@ export function Hero() {
 
   return (
 
-    <section id="hero" className="min-h-screen flex flex-col items-center justify-between bg-zinc-100 pt-20 pb-12">
+    <section id="hero" className="min-h-screen flex flex-col items-center justify-between bg-zinc-100 pb-12">
       <div className="flex flex-col items-center gap-6 justify-center flex-1 px-6">
         <div className="flex flex-col items-center  justify-center gap-6 pb-6">
           <img src="/Main_Logo.png" alt="Lay Down The Groove" className="w-64 md:w-1/3" />
