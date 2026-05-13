@@ -51,6 +51,7 @@ Keep the tone raw, underground and authentic to the label's identity.`
       body: JSON.stringify({
         model: 'claude-sonnet-4-6',  // which Claude model
         max_tokens: 1024,             // max length of response
+        stream: true,                    // get response as a stream
         messages: [
           { role: 'user', content: prompt }  // the conversation
         ]
@@ -58,16 +59,25 @@ Keep the tone raw, underground and authentic to the label's identity.`
     })
 
     // Get raw text first then parse — helps debug if response isn't valid JSON
-    const rawText = await response.text()
-    const data = JSON.parse(rawText)
+    /*const rawText = await response.text() //waits for the full response as text
+    const data = JSON.parse(rawText) // parses the text into JSON, which should have the generated content
 
     // Extract the generated text from Claude's response
-    const generatedText = data.content[0].text
+    const generatedText = data.content[0].text // extracts text
 
     // Send back to React with CORS headers
     return new Response(JSON.stringify({ result: generatedText }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' }
-    })
+    })*/
+
+      // Pass the stream directly to React
+return new Response(response.body, {
+  headers: {
+    ...corsHeaders,
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+  }
+})
 
   } catch (error) {
     // If anything goes wrong, send back the error with CORS headers

@@ -6,7 +6,7 @@ export function AdminReleaseNotes() {
   const [releases, setReleases] = useState([]);
   const [selectedRelease, setSelectedRelease] = useState(null);
   const [vibeNotes, setVibeNotes] = useState('');
-  const [generatedNotes, setGeneratedNotes] = useState([]);
+  const [generatedNotes, setGeneratedNotes] = useState('');
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export function AdminReleaseNotes() {
     fetchReleases();
   }, []);
 
-  const handleGenerate = async () => {
+  /*const handleGenerate = async () => {
 
     if (!selectedRelease) {
       alert('Please select a release from the dropdown menu');
@@ -29,6 +29,47 @@ export function AdminReleaseNotes() {
     if (error) throw new Error(error.message)
     const sections = data.result.split('---')
     setGeneratedNotes(sections);
+    setLoading(false);
+  }*/
+
+  const handleGenerate = async () => {
+
+    if (!selectedRelease) {
+      alert('Please select a release from the dropdown menu');
+      return;
+    }
+    setLoading(true);
+    setGeneratedNotes('');
+    const { data: { session } } = await supabase.auth.getSession();
+    const response = await fetch('https://rrrprqngtuikmuxiorqm.supabase.co/functions/v1/generate-release-notes', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${session.access_token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ release: selectedRelease, vibeNotes })
+    })
+    const reader = response.body.getReader()
+    const decoder = new TextDecoder();
+
+    while (true) {
+      const { done, value } = await reader.read()
+      if (done) break;
+      const chunk = decoder.decode(value)
+      const lines = chunk.split('\n')
+      for (const line of lines) {
+        if (line.startsWith('data: ')) {
+          try {
+            const json = JSON.parse(line.slice(6))
+            if (json.type === 'content_block_delta' && json.delta?.text) {
+              setGeneratedNotes(prev => prev + json.delta.text)
+            }
+          } catch (e) {
+            // skip non-JSON lines
+          }
+        }
+      }
+    }
     setLoading(false);
   }
 
@@ -69,7 +110,7 @@ export function AdminReleaseNotes() {
 
         {generatedNotes.length > 0 && (
           <div className="flex flex-col gap-6 mt-6">
-            {generatedNotes.map((section, index) => (
+            {/*generatedNotes.map((section, index) => (
               <div key={index} className="p-4 border border-gray-200 bg-gray-50">
                 <div className="flex justify-end mb-2">
                   <button
@@ -80,7 +121,17 @@ export function AdminReleaseNotes() {
                 </div>
                 <p className="text-sm whitespace-pre-wrap">{section}</p>
               </div>
-            ))}
+            ))*/}
+            <div className="p-4 border border-gray-200 bg-gray-50">
+              <div className="flex justify-end mb-2">
+                <button
+                  onClick={() => navigator.clipboard.writeText(generatedNotes)}
+                  className="text-xs uppercase tracking-widest text-red-950 hover:text-red-700 transition-colors">
+                  Copy
+                </button>
+              </div>
+              <p className="text-sm whitespace-pre-wrap">{generatedNotes}</p>
+            </div>
           </div>
         )}
       </div>
