@@ -1,4 +1,10 @@
 import { supabase } from "../supabase";
+import { motion } from "framer-motion";
+
+const hoverProps = {
+  whileHover: { y: -4 },
+  transition: { duration: 0.2, ease: "easeOut" },
+};
 
 const EventsCard = ({ event }) => {
 
@@ -24,8 +30,8 @@ const EventsCard = ({ event }) => {
   );
 
   return event.booking_link
-    ? <a href={event.booking_link} target="_blank" rel="noopener noreferrer" className="block group">{cardContent}</a>
-    : <div>{cardContent}</div>;
+    ? <motion.a href={event.booking_link} target="_blank" rel="noopener noreferrer" className="block group" {...hoverProps}>{cardContent}</motion.a>
+    : <motion.div {...hoverProps}>{cardContent}</motion.div>;
 }
 
 export default EventsCard;
