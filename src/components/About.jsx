@@ -1,12 +1,13 @@
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 
 export function About() {
+  const prefersReducedMotion = useReducedMotion();
   return (
     <section id="about" className="py-16 px-6 bg-zinc-100 flex flex-col pb-24">
       <h2 className="text-3xl font-bold uppercase tracking-widest text-center mb-12">About</h2>
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={prefersReducedMotion ? false : { opacity: 0, y: 30 }}
+        whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
       >
@@ -17,7 +18,7 @@ export function About() {
             </p>
           </div>
           <div>
-            <img src="/Artists/about.jpg" alt="Lay Down The Groove" className="w-full h-auto object-cover" />
+            <img src="/Artists/about.jpg" alt="Lay Down The Groove" loading="lazy" decoding="async" className="w-full h-auto object-cover" />
           </div>
         </div>
       </motion.div>

@@ -26,20 +26,20 @@ export function Hero() {
           <img src="/Main_Logo.png" alt="Lay Down The Groove" className="w-64 md:w-1/3" />
           <p className="text-gray-800 text-sm md:text-base font-bold tracking-widest uppercase">Record Label & Artist · Melbourne</p>
         </div>
-        <button onClick={() => document.getElementById('releases').scrollIntoView({ behavior: 'smooth' })} className="border-2 border-black text-black px-8 py-3 text-sm tracking-widest uppercase hover:bg-black hover:text-white transition-colors">
+        <button onClick={() => document.getElementById('releases').scrollIntoView({ behavior: 'smooth' })} className="cursor-pointer border-2 border-black text-black px-8 py-3 text-sm tracking-widest uppercase hover:bg-black hover:text-white transition-colors">
           Explore Releases
         </button>
-        <div className="flex gap-6">
+        <div className="flex gap-0">
           <a href="https://instagram.com/laydownthegroove" target="_blank" rel="noopener noreferrer"
-            className="text-black hover:text-gray-500  transition-colors">
+            className="p-3 text-black hover:text-gray-500 transition-colors cursor-pointer">
             <SiInstagram size={20} />
           </a>
           <a href="https://soundcloud.com/lay-down-the-groove" target="_blank" rel="noopener noreferrer"
-            className="text-black hover:text-gray-500  transition-colors">
+            className="p-3 text-black hover:text-gray-500 transition-colors cursor-pointer">
             <SiSoundcloud size={20} />
           </a>
           <a href="https://laydownthegroove.bandcamp.com" target="_blank" rel="noopener noreferrer"
-            className="text-black hover:text-gray-500  transition-colors">
+            className="p-3 text-black hover:text-gray-500 transition-colors cursor-pointer">
             <SiBandcamp size={20} />
           </a>
         </div>

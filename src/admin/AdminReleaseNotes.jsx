@@ -49,7 +49,7 @@ export function AdminReleaseNotes() {
       },
       body: JSON.stringify({ release: selectedRelease, vibeNotes })
     })
-    const reader = response.body.getReader()
+    const reader = response.body.getReader() //read data streams
     const decoder = new TextDecoder();
 
     while (true) {

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 
@@ -7,6 +7,8 @@ export function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const hamburgerRef = useRef(null);
+  const menuRef = useRef(null);
 
   const handleNavClick = (section) => {
     setMenuOpen(false);
@@ -17,11 +19,54 @@ export function Navbar() {
     }
   };
 
+  const closeMenu = () => {
+    setMenuOpen(false);
+    hamburgerRef.current?.focus();
+  };
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const focusableSelector = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+    const firstFocusable = menuRef.current?.querySelector(focusableSelector);
+    firstFocusable?.focus();
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        closeMenu();
+        return;
+      }
+      if (e.key !== 'Tab') return;
+
+      const focusable = Array.from(menuRef.current?.querySelectorAll(focusableSelector) ?? []);
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey) {
+        if (document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else {
+        if (document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [menuOpen]);
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-red-950 px-4">
       <div className="container mx-auto flex items-center justify-between">
         <button onClick={() => handleNavClick('hero')}>
-          <img src="/Alternate_Logo_No_Text.png" alt="Lay Down The Groove" className="h-20 invert" />
+          <img src="/Alternate_Logo_No_Text.png" alt="Lay Down The Groove" className="h-20 invert cursor-pointer" />
         </button>
         <ul className=" hidden md:flex space-x-4 text-white  tracking-widest">
           <li><button onClick={() => handleNavClick('releases')} className="hover:text-gray-400">Releases</button></li>
@@ -29,19 +74,30 @@ export function Navbar() {
           <li><button onClick={() => handleNavClick('events')} className="hover:text-gray-400">Events</button></li>
           <li><button onClick={() => handleNavClick('about')} className="hover:text-gray-400">About</button></li>
         </ul>
-        <button className="md:hidden text-white"
-          onClick={() => setMenuOpen(!menuOpen)}>
+        <button
+          ref={hamburgerRef}
+          className="md:hidden text-white"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
+        >
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
       {menuOpen && (
         <div
+          ref={menuRef}
+          id="mobile-menu"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navigation menu"
           className="font-bebas md:hidden bg-black/90 fixed inset-0 z-50 flex flex-col text-white text-4xl tracking-widest items-center justify-center gap-4"
           onClick={(e) => {
-            if (e.target === e.currentTarget) setMenuOpen(false)
+            if (e.target === e.currentTarget) closeMenu()
           }}
         >
-          <button onClick={() => setMenuOpen(false)} className="absolute top-6 right-6 text-white">
+          <button onClick={closeMenu} className="absolute top-6 right-6 text-white" aria-label="Close menu">
             <X size={24} />
           </button>
           <img src="/Alternate_Logo_No_Text.png" alt="LDG" className="h-16 w-auto invert mb-8" />

@@ -6,13 +6,11 @@ const EventsCard = ({ event }) => {
     ? supabase.storage.from('ldg-media').getPublicUrl(event.photo).data?.publicUrl
     : null;
 
-  return (
-
-  <a href={event.booking_link} target="_blank" rel="noopener noreferrer" className="block group">
+  const cardContent = (
     <div className="flex flex-col w-full">
-      <div className="bg-gray-200 overflow-hidden"> 
+      <div className="bg-gray-200 overflow-hidden">
         {event.photo ? (
-          <img src={imageUrl} alt={event.name} className="w-full h-full object-cover" />)
+          <img src={imageUrl} alt={event.name} loading="lazy" decoding="async" className="w-full h-full object-cover" />)
           : null
         }
       </div>
@@ -23,8 +21,11 @@ const EventsCard = ({ event }) => {
         </p>
       </div>
     </div>
-  </a>
-  )
+  );
+
+  return event.booking_link
+    ? <a href={event.booking_link} target="_blank" rel="noopener noreferrer" className="block group">{cardContent}</a>
+    : <div>{cardContent}</div>;
 }
 
 export default EventsCard;

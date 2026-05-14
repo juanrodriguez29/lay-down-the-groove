@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+:root {
+  --navbar-height: 5rem; /* 80px — matches h-20 in Navbar.jsx */
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -22,7 +26,7 @@ html {
   scroll-behavior: smooth;
 }
 section {
-  scroll-margin-top: 80px;
+  scroll-margin-top: var(--navbar-height);
 }
 h1, h2 {
   font-family: 'Bebas Neue', sans-serif;
@@ -39,10 +43,10 @@ h1, h2 {
   /*color: #5e1c14;                 /* oxblood text             */
   background: #e5e5e5;
   padding: 6px 0;
-  
+  color: #450a0a;
   font-family: "JetBrains Mono", ui-monospace, monospace;
   font-size: 13px;
-  font-weight: semi-bold;
+  font-weight: 500;
   letter-spacing: 1.5px;
   text-transform: uppercase;
 }

@@ -13,7 +13,7 @@ const ReleaseCard = ({ release }) => {
 
         <div className="aspect-square bg-gray-200 relative overflow-hidden">
           {imageUrl ? (
-            <img src={imageUrl} alt={release.title} className="w-full h-full object-cover" />
+            <img src={imageUrl} alt={release.title} loading="lazy" decoding="async" className="w-full h-full object-cover" />
           ) : null}
           <div className="absolute bottom-2 right-2 md:hidden bg-black bg-opacity-60 p-1 rounded">
             <SiBandcamp size={16} className="text-white" />

@@ -17,16 +17,18 @@ function Home() {
   return (
     <div className="flex flex-col">
       <Navbar />
-      <div className="pt-20">
+      <div className="pt-[var(--navbar-height)]">
         <Marquee items={[
           'New release out now',
           'LDG012 Unearthed Archives 2016 - 2020 available on Bandcamp',
         ]} />
         <Hero />
-        <Releases />
-        <Artists />
-        <Events />
-        <About />
+        <div className="divide-y divide-zinc-900 border-t border-zinc-900">
+          <Releases />
+          <Artists />
+          <Events />
+          <About />
+        </div>
         <Footer />
       </div>
     </div>
