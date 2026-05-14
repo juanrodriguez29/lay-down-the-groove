@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '../supabase';
 import { useParams } from 'react-router-dom';
 import { Navbar } from '../components/Navbar';
+import { Marquee } from '../components/Marquee';
 
 export function ArtistPage() {
 
@@ -33,6 +34,12 @@ export function ArtistPage() {
   return (
     <div className="flex flex-col">
       <Navbar />
+      <div className="pt-[var(--navbar-height)]">
+        <Marquee items={[
+          'New release out now',
+          'LDG012 Unearthed Archives 2016 - 2020 available on Bandcamp',
+        ]} />
+      </div>
       <div className="px-6 bg-zinc-100 min-h-screen pt-24 pb-16 flex items-center">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 max-w-6xl mx-auto items-start w-full">
           
